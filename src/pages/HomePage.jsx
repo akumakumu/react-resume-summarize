@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import DOMPurify from 'dompurify';
 
 function HomePage() {
   const [requirements, setRequirements] = useState('');
@@ -22,8 +23,11 @@ function HomePage() {
       const response = await fetch('http://127.0.0.1:8000/resume-insight', options);
 
       const responseData = await response.json();
+      const sanitizedHTML = DOMPurify.sanitize(responseData.message)
+      
+      // setResult(responseData.message);
+      setResult(sanitizedHTML);
 
-      setResult(responseData.message);
     } catch (e) {
       setResult('error');
       console.error(e);
@@ -69,7 +73,10 @@ function HomePage() {
             </form>
             <div>
               <h1>Result</h1>
-              <p>{result}</p>
+              <div
+                className="result"
+                dangerouslySetInnerHTML={{ __html: result }}
+              />
             </div>
           </div>
         </section>
