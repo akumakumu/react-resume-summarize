@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import DOMPurify from 'dompurify';
 
-import { API_URL } from '../utils/env'
-
 function HomePage() {
   const [requirements, setRequirements] = useState('');
   const [pdf, setPdf] = useState(null);
@@ -22,7 +20,9 @@ function HomePage() {
         body: formData,
       };
 
-      const response = await fetch(`${API_URL}`, options);
+      const response = await fetch(
+        import.meta.env.VITE_API_URL, 
+        options);
 
       const responseData = await response.json();
       const sanitizedHTML = DOMPurify.sanitize(responseData.message)
