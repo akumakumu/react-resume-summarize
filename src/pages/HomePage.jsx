@@ -18,7 +18,7 @@ function HomePage() {
       const options = {
         method: 'POST',
         body: formData,
-        referrerPolicy: "unsafe_url"
+        referrerPolicy: 'no-referrer'
       };
 
       const response = await fetch(
